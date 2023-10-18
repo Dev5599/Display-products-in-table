@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,tr,th,td{
+            border: 3px solid gray;
+            border-collapse: collapse;
+            width: 1000px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="tableFormat">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>category</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>View More</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
+        
+    </table>
+    <script>
+        fetch("https://fakestoreapi.com/products", {
+            method: "get"
+        }).then((data) => data.json()).then((data) => {
+            console.log(data)
+            let tablebody=document.getElementById("tableBody");
+
+           data.forEach((products)=>{
+            let row=document.createElement("tr")
+
+            let idData=document.createElement("td")
+            idData.innerText=products.id
+
+            let categoryData=document.createElement("td")
+            categoryData.innerText=products.category
+
+            let imgData=document.createElement("td")
+            let image=document.createElement("img")
+            imgData.appendChild(image)
+            image.setAttribute("src",products.image)
+            image.style.width="100px"
+            image.style.height="100px"
+
+            let priceData=document.createElement("td")
+            priceData.innerText=products.price
+
+            let vm=document.createElement("td")
+            let link = document.createElement('a');
+            vm.appendChild(link)
+            link.innerText="View Details"
+            link.href=`https://fakestoreapi.com/products/${products.id}`
+            
+            row.appendChild(idData)
+            row.appendChild(categoryData)
+            row.appendChild(imgData)
+            row.appendChild(priceData)
+            row.appendChild(vm)
+           tablebody.appendChild(row)
+           })
+        })
+    </script>
+</body>
+
+</html>
+
+
